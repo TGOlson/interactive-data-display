@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('idd', [
   'ngMaterial',
   'ngAnimate',
@@ -7,11 +9,11 @@ angular.module('idd', [
 
 .config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
 
-  $urlRouterProvider.otherwise('/data-view');
+  $urlRouterProvider.otherwise('/logs');
 
-  $stateProvider.state('data-view', {
-    url         : '/data-view',
-    templateUrl : '/client/data-view/data-view.html',
-    controller  : 'DataViewCtrl as dataViewCtrl'
+  $stateProvider.state('logs', {
+    url         : '/logs',
+    templateUrl : '/client/logs/logs.html',
+    controller  : 'LogsCtrl as logsCtrl'
   });
 }]);

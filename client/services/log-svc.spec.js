@@ -11,7 +11,7 @@ describe('LogSvc', function() {
     'b7af832e,explore,22,118.781',
     '38f5841d,welcome,189,39.657',
     'b63335a2,,57,'
-  ].join('\n');
+  ].join('\r');
 
   beforeEach(module('idd'));
 
@@ -47,7 +47,7 @@ describe('LogSvc', function() {
     it('should parse the log values', function() {
       var parsedLogs = LogSvc.parseLogs(fakeLogData);
 
-      expect(parsedLogs.values).toEqual([
+      expect(parsedLogs.valueSets).toEqual([
         ['b7af832e', 'explore', '22', '118.781'],
         ['38f5841d' , 'welcome', '189', '39.657'],
         ['b63335a2' , '', '57', '']
@@ -57,8 +57,8 @@ describe('LogSvc', function() {
 
   describe('takeLogs', function() {
     it('should return the specified number of logs', function() {
-      LogSvc.takeLogs(1).then(function(logs) {
-        expect(logs.values.length).toBe(1);
+      LogSvc.takeLogs(2).then(function(logs) {
+        expect(logs.valueSets.length).toBe(2);
       });
 
       $httpBackend.flush();

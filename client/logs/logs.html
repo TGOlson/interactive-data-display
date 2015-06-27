@@ -1,0 +1,15 @@
+<h1>Log Data</h1>
+
+<div layout="row">
+  <!-- Wrap subheader in span to prevent querySelector error:
+  https://github.com/angular/material/issues/2513 -->
+  <span flex ng-repeat="header in logsCtrl.logs.headers">
+    <md-subheader>{{header}}</md-subheader>
+  </span>
+</div>
+
+<md-list>
+  <md-list-item ng-repeat="values in logsCtrl.logs.valueSets">
+    <span flex ng-repeat="value in values track by $index">{{value || "N/A"}}</p>
+  </md-list-item>
+</md-list>

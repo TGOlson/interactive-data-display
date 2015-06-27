@@ -21,16 +21,16 @@ angular.module('idd')
   }
 
   function parseLogs(rawLogs) {
-    var logs = R.split('\n', rawLogs);
+    var logs = R.split('\r', rawLogs);
 
     return {
-      headers : parseHeaders(logs),
-      values  : parseValues(logs)
+      headers   : parseHeaders(logs),
+      valueSets : parseValues(logs)
     };
   }
 
   function takeLogs(n) {
-    return getLogs().then(R.evolve({values: R.take(n)}));
+    return getLogs().then(R.evolve({valueSets: R.take(n)}));
   }
 
   return {

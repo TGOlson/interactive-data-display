@@ -16,10 +16,10 @@ Run tests
 $ npm test
 ```
 
-Run app (using any static asset server, for example)
+Run app (require Python `SimpleHTTPServer` to be installed)
 
 ```
-$ python -m SimpleHTTPServer 8000
+$ npm start
 ```
 
 Check it out at `localhost:8000/client`
