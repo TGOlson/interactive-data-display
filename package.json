@@ -1,0 +1,23 @@
+{
+  "name": "interactive-data-display",
+  "version": "1.0.0",
+  "description": "Check out some cool CSV data!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "bower install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TGOlson/interactive-data-display.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TGOlson/interactive-data-display/issues"
+  },
+  "homepage": "https://github.com/TGOlson/interactive-data-display",
+  "dependencies": {
+    "bower": "1.4.1"
+  }
+}
