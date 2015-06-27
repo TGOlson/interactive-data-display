@@ -1,7 +1,8 @@
 angular.module('idd', [
   'ngMaterial',
   'ngAnimate',
-  'ui.router'
+  'ui.router',
+  'vendor',
 ])
 
 .config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
