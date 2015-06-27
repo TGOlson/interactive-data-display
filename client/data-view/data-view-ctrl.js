@@ -6,9 +6,5 @@ angular.module('idd')
   dataViewCtrl.message = 'Hi again!';
 
   // dataViewCtrl.loading = true;
-  //
-  // // LogSvc.getLogs().then(function(data) {
-  // //   console.log('Done loading');
-  // //   console.log(data);
-  // // });
+
 }]);
