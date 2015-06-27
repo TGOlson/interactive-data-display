@@ -4,7 +4,7 @@
   "description": "Check out some cool CSV data!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "karma start --singleRun",
     "postinstall": "bower install"
   },
   "repository": {
@@ -19,5 +19,11 @@
   "homepage": "https://github.com/TGOlson/interactive-data-display",
   "dependencies": {
     "bower": "1.4.1"
+  },
+  "devDependencies": {
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.12.37",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-jasmine": "^0.3.5"
   }
 }

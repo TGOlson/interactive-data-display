@@ -10,6 +10,12 @@ Install dependencies:
 $ npm install
 ```
 
+Run tests
+
+```
+$ npm test
+```
+
 Run app (using any static asset server, for example)
 
 ```

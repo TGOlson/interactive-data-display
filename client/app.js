@@ -1,5 +1,6 @@
 angular.module('idd', [
   'ngMaterial',
+  'ngAnimate',
   'ui.router'
 ])
 
@@ -9,7 +10,7 @@ angular.module('idd', [
 
   $stateProvider.state('data-view', {
     url         : '/data-view',
-    templateUrl : '/client/data-view.html',
+    templateUrl : '/client/data-view/data-view.html',
     controller  : 'DataViewCtrl as dataViewCtrl'
   });
 }]);
