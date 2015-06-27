@@ -3,8 +3,7 @@
 angular.module('idd')
 
 .constant('LogSvcConstants', {
-  // local copy of data for dev
-  LOG_URL: '/data/input.csv'
+  LOG_URL : '/data/input.csv' // local copy of data for dev
   // LOG_URL: 'https://s3.amazonaws.com/challenge.wagon/input.csv'
 })
 
@@ -14,9 +13,9 @@ angular.module('idd')
   var parseHeaders = R.compose(parseItems, R.replace(/"/g, ''), R.head);
   var parseValues  = R.compose(R.map(parseItems), R.tail);
 
-  var getLogs = R.composeP(parseLogs, getRawLogs);
+  var getLogs = R.composeP(parseLogs, getLogData);
 
-  function getRawLogs() {
+  function getLogData() {
     return $http.get(LogSvcConstants.LOG_URL)
       .then(R.prop('data'));
   }
@@ -35,7 +34,7 @@ angular.module('idd')
   }
 
   return {
-    getRawLogs : getRawLogs,
+    getLogData : getLogData,
     parseLogs  : parseLogs,
     getLogs    : getLogs,
     takeLogs   : takeLogs

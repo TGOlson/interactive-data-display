@@ -2,37 +2,30 @@
 
 describe('LogSvc', function() {
 
-  var fakeRawLogs,
+  var fakeLogData,
       LogSvc,
       $httpBackend;
 
-  fakeRawLogs = [
+  fakeLogData = [
     '"sessionId (id)","page (text)","latency (int)","timeOnPage (float)"',
     'b7af832e,explore,22,118.781',
-    '38f5841d,welcome,189,39.657'
-    // 'b90e8b3d,query,63,423.585',
-    // '385b525c,query,180,332.658'
-  ].join('\n')
+    '38f5841d,welcome,189,39.657',
+    'b63335a2,,57,'
+  ].join('\n');
 
   beforeEach(module('idd'));
-  //
-  // beforeEach(module(function($provide) {
-  //   $provide.value('MjEntityService', mockMjEntityService);
-  // }));
-
 
   beforeEach(inject(function(_LogSvc_, _LogSvcConstants_, _$httpBackend_) {
-    LogSvc = _LogSvc_
-    $httpBackend = _$httpBackend_
+    LogSvc       = _LogSvc_;
+    $httpBackend = _$httpBackend_;
 
-    $httpBackend.whenGET(_LogSvcConstants_.LOG_URL).respond(fakeRawLogs)
-    // dataViewCtrl = $controller('DataViewCtrl', {});
+    $httpBackend.whenGET(_LogSvcConstants_.LOG_URL).respond(fakeLogData);
   }));
 
-  describe('getRawLogs', function() {
+  describe('getLogData', function() {
     it('should fetch a list of logs', function() {
-      LogSvc.getRawLogs().then(function(logs) {
-        expect(logs).toEqual(fakeRawLogs);
+      LogSvc.getLogData().then(function(logs) {
+        expect(logs).toEqual(fakeLogData);
       });
 
       $httpBackend.flush();
@@ -41,7 +34,7 @@ describe('LogSvc', function() {
 
   describe('parseLogs', function() {
     it('should parse the log headers', function() {
-      var parsedLogs = LogSvc.parseLogs(fakeRawLogs);
+      var parsedLogs = LogSvc.parseLogs(fakeLogData);
 
       expect(parsedLogs.headers).toEqual([
         'sessionId (id)',
@@ -52,11 +45,12 @@ describe('LogSvc', function() {
     });
 
     it('should parse the log values', function() {
-      var parsedLogs = LogSvc.parseLogs(fakeRawLogs);
+      var parsedLogs = LogSvc.parseLogs(fakeLogData);
 
       expect(parsedLogs.values).toEqual([
         ['b7af832e', 'explore', '22', '118.781'],
-        ['38f5841d' , 'welcome', '189', '39.657']
+        ['38f5841d' , 'welcome', '189', '39.657'],
+        ['b63335a2' , '', '57', '']
       ]);
     });
   });
