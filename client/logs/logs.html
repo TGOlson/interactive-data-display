@@ -1,15 +1,24 @@
-<h1>Log Data</h1>
-
-<div layout="row">
-  <!-- Wrap subheader in span to prevent querySelector error:
-  https://github.com/angular/material/issues/2513 -->
-  <span flex ng-repeat="header in logsCtrl.logs.headers">
-    <md-subheader>{{header}}</md-subheader>
-  </span>
+<div ng-show="logsCtrl.loading">
+  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
 </div>
 
-<md-list>
-  <md-list-item ng-repeat="values in logsCtrl.logs.valueSets">
-    <span flex ng-repeat="value in values track by $index">{{value || "N/A"}}</p>
-  </md-list-item>
-</md-list>
+<section ng-hide="logsCtrl.loading">
+  <md-subheader>
+    <div layout="row">
+      <span flex ng-repeat="header in ::logsCtrl.headers">{{::header}}</span>
+    </div>
+  </md-subheader>
+
+  <md-divider></md-divider>
+
+  <md-content>
+
+    <md-list>
+      <md-list-item ng-repeat="log in logsCtrl.visibleLogs">
+        <span flex ng-repeat="value in ::log track by $index">{{::value || "N/A"}}</p>
+      </md-list-item>
+    </md-list>
+
+  </md-content>
+
+</section>

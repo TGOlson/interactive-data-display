@@ -9,15 +9,20 @@
     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
 
   </head>
-  <body>
+  <body layout="row">
 
-    <md-toolbar>
-      <div class="md-toolbar-tools">
-        <h2>Interactive CSV Data Display!</h2>
-      </div>
-    </md-toolbar>
+    <div layout="column" layout-fill>
 
-    <div layout-padding ui-view></div>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2>Interactive Log Explorer</h2>
+        </div>
+      </md-toolbar>
+
+      <md-content flex>
+        <div ui-view></div>
+      </md-content>
+    </div>
 
     <script src="/bower_components/ramda/dist/ramda.js"></script>
     <script src="/bower_components/angular/angular.js"></script>

@@ -3,8 +3,7 @@
 angular.module('idd')
 
 .constant('LogSvcConstants', {
-  LOG_URL : '/data/input.csv' // local copy of data for dev
-  // LOG_URL: 'https://s3.amazonaws.com/challenge.wagon/input.csv'
+  LOG_URL : '/data/logs_10000.csv'
 })
 
 .factory('LogSvc', ['$http', 'LogSvcConstants', 'R', function($http, LogSvcConstants, R) {
@@ -20,8 +19,8 @@ angular.module('idd')
       .then(R.prop('data'));
   }
 
-  function parseLogs(rawLogs) {
-    var logs = R.split('\r', rawLogs);
+  function parseLogs(logData) {
+    var logs = R.split('\r', logData);
 
     return {
       headers   : parseHeaders(logs),
@@ -29,15 +28,10 @@ angular.module('idd')
     };
   }
 
-  function takeLogs(n) {
-    return getLogs().then(R.evolve({valueSets: R.take(n)}));
-  }
-
   return {
     getLogData : getLogData,
     parseLogs  : parseLogs,
-    getLogs    : getLogs,
-    takeLogs   : takeLogs
+    getLogs    : getLogs
   };
 }])
 

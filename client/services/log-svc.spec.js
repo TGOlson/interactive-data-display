@@ -55,14 +55,4 @@ describe('LogSvc', function() {
     });
   });
 
-  describe('takeLogs', function() {
-    it('should return the specified number of logs', function() {
-      LogSvc.takeLogs(2).then(function(logs) {
-        expect(logs.valueSets.length).toBe(2);
-      });
-
-      $httpBackend.flush();
-    });
-  });
-
 });

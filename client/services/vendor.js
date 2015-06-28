@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('vendor', [])
 
 .factory('R', ['$window', function($window) {

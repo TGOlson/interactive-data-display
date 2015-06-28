@@ -5,17 +5,19 @@ angular.module('idd')
 .controller('LogsCtrl', ['LogSvc', function(LogSvc) {
   var logsCtrl = this;
 
-  var LOG_COUNT = 100;
-
   logsCtrl.loading = true;
 
-  logsCtrl.message = 'Hi again!';
+  LogSvc.getLogs().then(setLogs);
 
-  LogSvc.takeLogs(LOG_COUNT).then(setLogs);
+  function setLogs(logData) {
+    console.log(logData);
 
-  function setLogs(logs) {
-    logsCtrl.logs    = logs;
+    logsCtrl.headers = logData.headers;
+
+    logsCtrl.logs = logData.valueSets;
+    logsCtrl.visibleLogs = logsCtrl.logs.slice(0, 30);
     logsCtrl.loading = false;
   }
+
 
 }]);
