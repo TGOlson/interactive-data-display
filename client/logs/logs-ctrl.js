@@ -39,7 +39,7 @@ angular.module('idd')
     logsCtrl.topMargin = startIndex * LOG_ITEM_HEIGHT;
 
     $scope.$evalAsync(function() {
-      logsCtrl.visibleLogs = logsCtrl.filteredLogs.slice(startIndex, endIndex);
+      logsCtrl.visibleLogs = R.slice(startIndex, endIndex, logsCtrl.filteredLogs);
     });
   }
 
