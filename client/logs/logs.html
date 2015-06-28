@@ -1,3 +1,5 @@
+<h1 layout-padding>Log Data</h1>
+
 <div ng-show="logsCtrl.loading">
   <md-progress-circular md-mode="indeterminate"></md-progress-circular>
 </div>
@@ -11,14 +13,13 @@
 
   <md-divider></md-divider>
 
-  <md-content>
+  <md-list ng-style="{'margin-top': logsCtrl.topMargin + 'px'}">
+    <md-list-item ng-repeat="log in logsCtrl.visibleLogs">
+      <span flex ng-repeat="value in ::log track by $index">{{::value || "N/A"}}</p>
+    </md-list-item>
+  </md-list>
 
-    <md-list>
-      <md-list-item ng-repeat="log in logsCtrl.visibleLogs">
-        <span flex ng-repeat="value in ::log track by $index">{{::value || "N/A"}}</p>
-      </md-list-item>
-    </md-list>
-
-  </md-content>
-
+  <md-button ng-click="logsCtrl.loadMore()">
+    Load more
+  </md-button>
 </section>

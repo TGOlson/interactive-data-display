@@ -6,6 +6,8 @@ angular.module('idd')
   var logsCtrl = this;
 
   logsCtrl.loading = true;
+  logsCtrl.visibleLogs = [];
+  logsCtrl.topMargin = 0;
 
   LogSvc.getLogs().then(setLogs);
 
@@ -15,9 +17,18 @@ angular.module('idd')
     logsCtrl.headers = logData.headers;
 
     logsCtrl.logs = logData.valueSets;
-    logsCtrl.visibleLogs = logsCtrl.logs.slice(0, 30);
+    logsCtrl.loadMore();
     logsCtrl.loading = false;
   }
+
+  logsCtrl.loadMore = function() {
+    logsCtrl.topMargin += logsCtrl.visibleLogs.length * 48;
+
+    var nextSet = logsCtrl.logs.slice(logsCtrl.visibleLogs.length, logsCtrl.visibleLogs.length + 50);
+
+    logsCtrl.visibleLogs = nextSet;
+
+  };
 
 
 }]);
