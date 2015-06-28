@@ -1,10 +1,26 @@
-<h1 layout-padding>Log Data</h1>
 
-<div ng-show="logsCtrl.loading">
-  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+<div layout-padding ng-show="logsCtrl.loading">
+  <h2>Grabbing your logs...</h2>
+  <h4>This could take a moment for large data sets.</h4>
+  <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+
+  <!-- <md-progress-circular md-mode="indeterminate"></md-progress-circular> -->
 </div>
 
 <section ng-hide="logsCtrl.loading">
+  <div layout-padding layout="row" layout-align="space-between end">
+    <h1 >Log Data</h1>
+
+    <md-input-container flex="40">
+      <label>Search Logs</label>
+      <input ng-model="user.company">
+    </md-input-container>
+  </div>
+
+  <div layout-padding layout="row" layout-align="end center">
+    <p>Results found: {{logsCtrl.logs.length}}</p>
+  </div>
+
   <md-subheader>
     <div layout="row">
       <span flex ng-repeat="header in ::logsCtrl.headers">{{::header}}</span>
@@ -18,8 +34,4 @@
       <span flex ng-repeat="value in ::log track by $index">{{::value || "N/A"}}</p>
     </md-list-item>
   </md-list>
-
-  <md-button ng-click="logsCtrl.loadMore()">
-    Load more
-  </md-button>
 </section>
