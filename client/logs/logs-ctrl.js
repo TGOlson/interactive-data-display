@@ -6,20 +6,17 @@ angular.module('idd')
   var logsCtrl = this;
 
   var LOG_ITEM_HEIGHT = 48;
-
   var loader = LazyLoadSvc.makeLoaderFromSelector('md-content', LOG_ITEM_HEIGHT);
 
-  logsCtrl.loading = true;
-
-  logsCtrl.topMargin = 0;
-
+  logsCtrl.loading      = true;
+  logsCtrl.topMargin    = 0;
   logsCtrl.visibleLogs  = [];
   logsCtrl.filteredLogs = [];
   logsCtrl.allLogs      = [];
 
   LogSvc.getLogs()
     .then(R.tap(setHeaders))
-    .then(R.tap(setLogItems))
+    .then(R.tap(setLogs))
     .then(function() {
       logsCtrl.loading = false;
     });
@@ -28,7 +25,7 @@ angular.module('idd')
     logsCtrl.headers = logData.headers;
   }
 
-  function setLogItems(logData) {
+  function setLogs(logData) {
     logsCtrl.allLogs      = logData.valueSets;
     logsCtrl.filteredLogs = logData.valueSets;
 

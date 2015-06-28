@@ -46,14 +46,13 @@ describe('LazyLoadSvc', function() {
   describe('getIndices', function() {
     it('should return the displayable indices for a container', function() {
       var indices = LazyLoadSvc.getLoaderIndices(loader);
-
       expect(indices).toEqual([10, 75]);
     });
 
     it('should default to a start index of zero if the actual index with buffer is below zero', function() {
       loader.itemHeight = 50;
       var indices = LazyLoadSvc.getLoaderIndices(loader);
-
+      
       expect(indices).toEqual([0, 42]);
     });
   });

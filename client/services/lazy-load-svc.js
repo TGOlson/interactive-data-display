@@ -30,10 +30,6 @@ angular.module('idd')
     });
   }
 
-  function loaderShouldUpdate(loader, indices) {
-    return R.not(R.equals(loader.previousIndices, indices));
-  }
-
   function maybeUpdateLoaderIndices(loader, callback) {
     var indices = getLoaderIndices(loader);
 
@@ -47,13 +43,16 @@ angular.module('idd')
     callback(indices);
   }
 
+  function loaderShouldUpdate(loader, indices) {
+    return R.not(R.equals(loader.previousIndices, indices));
+  }
+
   function getLoaderIndices(loader) {
     return getIndices(loader.parentElement, loader.itemHeight);
   }
 
   function resetLoader(loader) {
     loader.parentElement.prop({scrollTop: '0px'});
-
   }
 
   function getIndices(parentElement, itemHeight) {
@@ -81,8 +80,6 @@ angular.module('idd')
     makeLoaderFromSelector : makeLoaderFromSelector,
     onLoaderChange         : onLoaderChange,
     getLoaderIndices       : getLoaderIndices,
-    resetLoader : resetLoader
+    resetLoader            : resetLoader
   };
-}])
-
-;
+}]);

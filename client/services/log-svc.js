@@ -33,6 +33,4 @@ angular.module('idd')
     parseLogs  : parseLogs,
     getLogs    : getLogs
   };
-}])
-
-;
+}]);

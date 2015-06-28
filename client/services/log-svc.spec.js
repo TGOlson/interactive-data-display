@@ -1,7 +1,6 @@
 'use strict';
 
 describe('LogSvc', function() {
-
   var fakeLogData,
       LogSvc,
       $httpBackend;

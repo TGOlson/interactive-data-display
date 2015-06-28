@@ -2,7 +2,7 @@
 
 describe('LogsCtrl', function() {
   var logsCtrl,
-      mockLogsSvc,
+      mockLogSvc,
       fakeLogs;
 
   fakeLogs = {
@@ -20,7 +20,7 @@ describe('LogsCtrl', function() {
     }
   };
 
-  mockLogsSvc = {
+  mockLogSvc = {
     getLogs: function() {
       return fakeLogsPromise;
     }
@@ -31,7 +31,7 @@ describe('LogsCtrl', function() {
   beforeEach(inject(function($controller) {
     logsCtrl = $controller('LogsCtrl', {
       $scope : {$evalAsync : angular.noop},
-      LogSvc : mockLogsSvc
+      LogSvc : mockLogSvc
     });
   }));
 
