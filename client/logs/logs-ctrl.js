@@ -2,21 +2,26 @@
 
 angular.module('idd')
 
-.controller('LogsCtrl', ['$scope', '$window', 'LogSvc', function($scope, $window, LogSvc) {
+.controller('LogsCtrl', ['$timeout', '$window', 'LogSvc', 'R', function($timeout, $window, LogSvc, R) {
   var logsCtrl = this;
 
   logsCtrl.loading = true;
   logsCtrl.visibleLogs = [];
+  logsCtrl.filteredLogs = [];
   logsCtrl.topMargin = 0;
+
+  var allLogs = [];
 
   LogSvc.getLogs().then(setLogData);
 
   function setLogData(logData) {
-    window.l = logData.valueSets;
     logsCtrl.headers = logData.headers;
 
-    logsCtrl.logs = logData.valueSets;
+    allLogs = logData.valueSets;
+    logsCtrl.filteredLogs = allLogs;
+
     checkDisplayCount();
+
     logsCtrl.loading = false;
   }
 
@@ -41,9 +46,9 @@ angular.module('idd')
 
     logsCtrl.topMargin = startIndex * itemHeight;
 
-    logsCtrl.visibleLogs = logsCtrl.logs.slice(startIndex, endIndex);
-
-    $scope.$apply();
+    $timeout(function () {
+      logsCtrl.visibleLogs = logsCtrl.filteredLogs.slice(startIndex, endIndex);
+    }, 0);
   }
 
   function getStartIndex(virtualElementCount, actualElementCount) {
@@ -55,5 +60,23 @@ angular.module('idd')
   function getEndIndex(virtualElementCount) {
     return virtualElementCount + bufferCount;
   }
+
+  logsCtrl.filterLogs = function(searchText) {
+    logsCtrl.searching = true;
+
+    $timeout(function() {
+      logsCtrl.filteredLogs = R.filter(R.any(R.identical(searchText)), allLogs);
+
+      checkDisplayCount();
+      logsCtrl.searching = false;
+    }, 100);
+
+
+  };
+
+  logsCtrl.clearFilter = function() {
+    logsCtrl.filteredLogs = allLogs;
+    checkDisplayCount();
+  };
 
 }]);

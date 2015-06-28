@@ -3,8 +3,7 @@
 angular.module('idd')
 
 .constant('LogSvcConstants', {
-  // LOG_URL : '/data/logs.csv'
-  LOG_URL : '/data/logs_10000.csv'
+  LOG_URL : '/data/logs.csv'
 })
 
 .factory('LogSvc', ['$http', 'LogSvcConstants', 'R', function($http, LogSvcConstants, R) {

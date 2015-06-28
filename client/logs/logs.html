@@ -1,24 +1,24 @@
-
 <div layout-padding ng-show="logsCtrl.loading">
   <h2>Grabbing your logs...</h2>
   <h4>This could take a moment for large data sets.</h4>
   <md-progress-linear md-mode="indeterminate"></md-progress-linear>
-
-  <!-- <md-progress-circular md-mode="indeterminate"></md-progress-circular> -->
 </div>
 
 <section ng-hide="logsCtrl.loading">
-  <div layout-padding layout="row" layout-align="space-between end">
-    <h1 >Log Data</h1>
-
+  <div layout-padding layout="row" layout-align="end end">
     <md-input-container flex="40">
-      <label>Search Logs</label>
-      <input ng-model="user.company">
+      <label>Enter search text (strict)</label>
+      <input ng-model="searchText">
     </md-input-container>
   </div>
 
-  <div layout-padding layout="row" layout-align="end center">
-    <p>Results found: {{logsCtrl.logs.length}}</p>
+  <div layout-padding layout="row" layout-align="end end">
+    <md-button class="md-primary" ng-click="logsCtrl.filterLogs(searchText)">Search</md-button>
+    <md-button ng-click="logsCtrl.clearFilter(); searchText = ''">Clear</md-button>
+  </div>
+
+  <div layout-padding layout="column" layout-align="center start">
+    <p>Results found: {{logsCtrl.filteredLogs.length}}</p>
   </div>
 
   <md-subheader>
@@ -29,9 +29,13 @@
 
   <md-divider></md-divider>
 
-  <md-list ng-style="{'margin-top': logsCtrl.topMargin + 'px'}">
-    <md-list-item ng-repeat="log in logsCtrl.visibleLogs">
-      <span flex ng-repeat="value in ::log track by $index">{{::value || "N/A"}}</p>
-    </md-list-item>
-  </md-list>
+  <div layout-padding>
+    <md-progress-circular ng-show="logsCtrl.searching" md-mode="indeterminate"></md-progress-circular>
+
+    <md-list ng-hide="logsCtrl.searching" ng-style="{'margin-top': logsCtrl.topMargin + 'px'}">
+      <md-list-item ng-repeat="log in logsCtrl.visibleLogs">
+        <span flex ng-repeat="value in ::log track by $index">{{::value || "N/A"}}</p>
+      </md-list-item>
+    </md-list>
+  </div>
 </section>

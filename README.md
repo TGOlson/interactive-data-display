@@ -1,6 +1,6 @@
-# Interactive Data Display
+# Interactive Log Explorer
 
-Check out some cool CSV data.
+Browse logs in style.
 
 Data: https://s3.amazonaws.com/challenge.wagon/input.csv
 
@@ -16,7 +16,7 @@ Run tests
 $ npm test
 ```
 
-Run app (require Python `SimpleHTTPServer` to be installed)
+Run app (requires Python `SimpleHTTPServer` to be installed)
 
 ```
 $ npm start
