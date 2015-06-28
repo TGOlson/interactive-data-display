@@ -54,8 +54,6 @@ angular.module('idd')
   };
 
   function resetCurrentLoader() {
-    LazyLoadSvc.resetLoader(loader);
-
     var indices = LazyLoadSvc.getLoaderIndices(loader);
     updateVisibleLogs(indices);
   }

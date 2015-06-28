@@ -51,10 +51,6 @@ angular.module('idd')
     return getIndices(loader.parentElement, loader.itemHeight);
   }
 
-  function resetLoader(loader) {
-    loader.parentElement.prop({scrollTop: '0px'});
-  }
-
   function getIndices(parentElement, itemHeight) {
     var contentHeight = parentElement.prop('clientHeight');
     var scrollTop     = parentElement.prop('scrollTop');
@@ -79,7 +75,6 @@ angular.module('idd')
     makeLoaderFromElement  : makeLoaderFromElement,
     makeLoaderFromSelector : makeLoaderFromSelector,
     onLoaderChange         : onLoaderChange,
-    getLoaderIndices       : getLoaderIndices,
-    resetLoader            : resetLoader
+    getLoaderIndices       : getLoaderIndices
   };
 }]);

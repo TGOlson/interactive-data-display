@@ -29,7 +29,12 @@
 
   <md-divider></md-divider>
 
-  <md-list ng-style="{'margin-top': logsCtrl.topMargin + 'px'}">
+  <div layout-padding ng-hide="logsCtrl.filteredLogs.length">
+    <h4>No logs match that search text.</h4>
+    <p>Note: strict search will only match fields identical to the provided search text.</p>
+  </div>
+
+  <md-list ng-show="logsCtrl.filteredLogs.length" ng-style="{'margin-top': logsCtrl.topMargin + 'px'}">
     <md-list-item ng-repeat="log in logsCtrl.visibleLogs">
       <span flex ng-repeat="value in ::log track by $index">{{::value || "N/A"}}</p>
     </md-list-item>
