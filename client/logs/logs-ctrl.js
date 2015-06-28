@@ -2,81 +2,65 @@
 
 angular.module('idd')
 
-.controller('LogsCtrl', ['$timeout', '$window', 'LogSvc', 'R', function($timeout, $window, LogSvc, R) {
+.controller('LogsCtrl', ['$scope', 'LazyLoadSvc', 'LogSvc', 'R', function($scope, LazyLoadSvc, LogSvc, R) {
   var logsCtrl = this;
 
+  var LOG_ITEM_HEIGHT = 48;
+
+  var loader = LazyLoadSvc.makeLoaderFromSelector('md-content', LOG_ITEM_HEIGHT);
+
   logsCtrl.loading = true;
-  logsCtrl.visibleLogs = [];
-  logsCtrl.filteredLogs = [];
+
   logsCtrl.topMargin = 0;
 
-  var allLogs = [];
+  logsCtrl.visibleLogs  = [];
+  logsCtrl.filteredLogs = [];
+  logsCtrl.allLogs      = [];
 
-  LogSvc.getLogs().then(setLogData);
+  LogSvc.getLogs()
+    .then(R.tap(setHeaders))
+    .then(R.tap(setLogItems))
+    .then(function() {
+      logsCtrl.loading = false;
+    });
 
-  function setLogData(logData) {
+  function setHeaders(logData) {
     logsCtrl.headers = logData.headers;
-
-    allLogs = logData.valueSets;
-    logsCtrl.filteredLogs = allLogs;
-
-    checkDisplayCount();
-
-    logsCtrl.loading = false;
   }
 
+  function setLogItems(logData) {
+    logsCtrl.allLogs      = logData.valueSets;
+    logsCtrl.filteredLogs = logData.valueSets;
 
-  var itemHeight = 48;
-  var bufferCount = 50;
+    LazyLoadSvc.onLoaderChange(loader, updateVisibleLogs);
+  }
 
-  var mainContent = $window.document.querySelector('md-content');
+  function updateVisibleLogs(indices) {
+    var startIndex = R.head(indices);
+    var endIndex   = R.last(indices);
 
-  angular.element(mainContent).bind('scroll', checkDisplayCount);
+    logsCtrl.topMargin = startIndex * LOG_ITEM_HEIGHT;
 
-  function checkDisplayCount() {
-    var contentHeight = mainContent.clientHeight;
-
-    var scrollTop = mainContent.scrollTop;
-
-    var actualElementCount  = Math.ceil(contentHeight / itemHeight);
-    var virtualElementCount = Math.ceil((scrollTop + contentHeight) / itemHeight);
-
-    var startIndex = getStartIndex(virtualElementCount, actualElementCount);
-    var endIndex = getEndIndex(virtualElementCount);
-
-    logsCtrl.topMargin = startIndex * itemHeight;
-
-    $timeout(function () {
+    $scope.$evalAsync(function() {
       logsCtrl.visibleLogs = logsCtrl.filteredLogs.slice(startIndex, endIndex);
-    }, 0);
-  }
-
-  function getStartIndex(virtualElementCount, actualElementCount) {
-    var difference = virtualElementCount - actualElementCount - bufferCount;
-
-    return difference > 0 ? difference : 0;
-  }
-
-  function getEndIndex(virtualElementCount) {
-    return virtualElementCount + bufferCount;
+    });
   }
 
   logsCtrl.filterLogs = function(searchText) {
-    logsCtrl.searching = true;
-
-    $timeout(function() {
-      logsCtrl.filteredLogs = R.filter(R.any(R.identical(searchText)), allLogs);
-
-      checkDisplayCount();
-      logsCtrl.searching = false;
-    }, 100);
-
-
+    logsCtrl.filteredLogs = R.filter(R.any(R.identical(searchText)), logsCtrl.allLogs);
+    resetCurrentLoader();
   };
 
   logsCtrl.clearFilter = function() {
-    logsCtrl.filteredLogs = allLogs;
-    checkDisplayCount();
+    logsCtrl.filteredLogs = logsCtrl.allLogs;
+    resetCurrentLoader();
   };
+
+  function resetCurrentLoader() {
+    LazyLoadSvc.resetLoader(loader);
+
+    var indices = LazyLoadSvc.getLoaderIndices(loader);
+    updateVisibleLogs(indices);
+  }
 
 }]);

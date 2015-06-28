@@ -29,13 +29,9 @@
 
   <md-divider></md-divider>
 
-  <div layout-padding>
-    <md-progress-circular ng-show="logsCtrl.searching" md-mode="indeterminate"></md-progress-circular>
-
-    <md-list ng-hide="logsCtrl.searching" ng-style="{'margin-top': logsCtrl.topMargin + 'px'}">
-      <md-list-item ng-repeat="log in logsCtrl.visibleLogs">
-        <span flex ng-repeat="value in ::log track by $index">{{::value || "N/A"}}</p>
-      </md-list-item>
-    </md-list>
-  </div>
+  <md-list ng-style="{'margin-top': logsCtrl.topMargin + 'px'}">
+    <md-list-item ng-repeat="log in logsCtrl.visibleLogs">
+      <span flex ng-repeat="value in ::log track by $index">{{::value || "N/A"}}</p>
+    </md-list-item>
+  </md-list>
 </section>
